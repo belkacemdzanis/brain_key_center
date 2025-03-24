@@ -6,10 +6,10 @@ const Footer = () => {
     <footer className="bg-black text-gray-300 py-6 border-t border-yellow-500">
       <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
         {/* Logo et Nom */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 md:mr-40">
           <img src="/images/brain_keyy-removebg-preview.png" alt="Logo" className="w-14 h-14" />
           <span className="text-xl font-semibold text-yellow-400" style={{ fontFamily: "'Cinzel', serif" }}>
-            Brain Key Center
+            Brain_Key_Center 
           </span>
         </div>
 
@@ -25,7 +25,7 @@ const Footer = () => {
           <Link to="/grades" className="hover:text-yellow-400 transition duration-300">Notes</Link>
           <Link to="/payment" className="hover:text-yellow-400 transition duration-300">Paiements</Link>
           <Link to="/inventory" className="hover:text-yellow-400 transition duration-300">Inventaire</Link>
-         </nav>
+        </nav>
 
         {/* Adresse de l'école */}
         <div className="mt-4 md:mt-0 text-center md:text-right">
