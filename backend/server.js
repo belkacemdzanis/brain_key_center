@@ -7,44 +7,45 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(express.json());
+// Utiliser CORS pour permettre les connexions depuis le frontend
 app.use(cors());
 
-// Test variable
+// Middleware pour parser les requêtes en JSON
+app.use(express.json());
+require("dotenv").config();
 console.log("Admin Secret Token chargé :", process.env.ADMIN_SECRET_TOKEN);
 
-// Connect DB
+// Connexion à la base de données
 connectDB();
 
-// Test route
-app.get('/', (req, res) => {
-  res.send('API is running...');
-});
-
-// Import routes
+// Importer les routes
 const studentRoutes = require('./routes/studentRoutes');
 const inventoryRoutes = require('./routes/inventoryRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const scheduleRoutes = require("./routes/scheduleRoutes");
-const classRouter = require('./routes/classRouter');
+ const classRouter = require('./routes/classRouter');
 const teacherRoutes = require('./routes/teacherRoutes');
 const statisticsRoutes = require('./routes/statisticsRoutes');
-const attendanceRoutes = require('./routes/attendanceRoutes');
+const attendanceRoutes = require('./routes/attendanceRoutes'); // المسار إلى ملف attendanceRoutes
 const teacherSchedulesRoutes = require('./routes/teacherSchedules');
 const userRoutes = require("./routes/userRoutes");
 
-// Mount routes
-app.use('/api/students', studentRoutes);
+
+// Monter les routes
+app.use('/api/students', studentRoutes); // Routes pour les étudiants
 app.use('/api/inventory', inventoryRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/schedule", scheduleRoutes);
-app.use('/api/classes', classRouter);
+ app.use('/api/classes', classRouter);
 app.use('/api/teachers', teacherRoutes);
 app.use('/api/statistics', statisticsRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/teacher-schedules', teacherSchedulesRoutes);
 app.use("/api/users", userRoutes);
 
-// Expose the app for Vercel (no app.listen here)
-module.exports = app;
+
+// Lancer le serveur
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
