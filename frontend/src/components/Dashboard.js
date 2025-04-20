@@ -10,8 +10,9 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("${process.env.REACT_APP_API_URL}/payments");
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/payments`);
         setPayments(response.data);
+        
       } catch (err) {
         setError("Erreur lors du chargement des paiements.");
       } finally {

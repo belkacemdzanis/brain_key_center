@@ -17,9 +17,9 @@ const Attendance = () => {
     const fetchData = async () => {
       try {
         const [studentsRes, teachersRes, classesRes] = await Promise.all([
-          axios.get("${process.env.REACT_APP_API_URL}/students"),
-          axios.get("${process.env.REACT_APP_API_URL}/teachers"),
-          axios.get("${process.env.REACT_APP_API_URL}/classes"),
+          axios.get(`${process.env.REACT_APP_API_URL}/students`),
+          axios.get(`${process.env.REACT_APP_API_URL}/teachers`),
+          axios.get(`${process.env.REACT_APP_API_URL}/classes`),
         ]);
         setStudents(studentsRes.data);
         setTeachers(teachersRes.data);
@@ -34,8 +34,9 @@ const Attendance = () => {
 
   const fetchAttendances = useCallback(async () => {
     try {
-      const res = await axios.get("${process.env.REACT_APP_API_URL}/attendance");
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/attendance`);
       setAttendances(res.data);
+      
     } catch (error) {
       console.error("Erreur lors de la récupération des données des présences", error);
     }

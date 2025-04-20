@@ -80,9 +80,10 @@ const AddAttendanceModal = ({
       } else {
         // Sinon, on effectue une création avec `POST`
         response = await axios.post(
-          "${process.env.REACT_APP_API_URL}/attendance",
+          `${process.env.REACT_APP_API_URL}/attendance`,
           attendanceData
         );
+        
       }
 
       console.log("Réponse du serveur:", response.data);

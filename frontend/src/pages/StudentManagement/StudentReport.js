@@ -8,25 +8,28 @@ const StudentReport = () => {
   useEffect(() => {
     const fetchStudentCount = async () => {
       try {
-        const response = await axios.get('${process.env.REACT_APP_API_URL}/students/count');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/students/count`);
         setStudentCount(response.data.count);
       } catch (error) {
         console.error('Erreur lors de la récupération du nombre d\'étudiants:', error);
       }
     };
-
+  
     const fetchUpcomingPaymentStudents = async () => {
       try {
-        const response = await axios.get('${process.env.REACT_APP_API_URL}/students/upcoming-payments');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/students/upcoming-payments`);
         setUpcomingPaymentStudents(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des étudiants proches de leur paiement:', error);
       }
     };
-
+  
+    // Call the functions inside useEffect
     fetchStudentCount();
     fetchUpcomingPaymentStudents();
-  }, []);
+  }, []); // Empty dependency array to run on mount
+  
+ 
 
   return (
     <div className="bg-gradient-to-r from-indigo-600 to-indigo-400 p-4 rounded-lg shadow-md max-w-3xl mx-auto mt-6">

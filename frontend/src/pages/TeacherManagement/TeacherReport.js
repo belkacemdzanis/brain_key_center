@@ -9,22 +9,23 @@ const TeacherReport = () => {
   const [totalMonthlyPayment, setTotalMonthlyPayment] = useState(0);
 
   useEffect(() => {
-    axios.get('${process.env.REACT_APP_API_URL}/teachers')
+    axios.get(`${process.env.REACT_APP_API_URL}/teachers`) // استخدم backticks هنا
       .then(response => {
         const data = response.data;
         setTeachers(data);
-
+  
         const count = data.length;
         const totalPayment = data.reduce((sum, teacher) => {
           const payment = parseFloat(teacher.monthlyPayment) || 0; // Convert to number or set 0 if not available
           return sum + payment;
         }, 0);
-
+  
         setEmployeeCount(count);
         setTotalMonthlyPayment(totalPayment);
       })
       .catch(error => console.error('Erreur de chargement:', error));
   }, []);
+  
 
   return (
     <div className="bg-gradient-to-r from-indigo-600 to-indigo-400 p-8 rounded-lg shadow-xl w-full max-w-lg mx-auto">

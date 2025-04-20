@@ -30,10 +30,10 @@ const StudentPayments = () => {
       setLoading(true);
       try {
         const [paymentResponse, studentResponse, teacherResponse, classResponse] = await Promise.all([
-          axios.get("${process.env.REACT_APP_API_URL}/payments"),
-          axios.get("${process.env.REACT_APP_API_URL}/students"),
-          axios.get("${process.env.REACT_APP_API_URL}/teachers"),
-          axios.get("${process.env.REACT_APP_API_URL}/classes"),
+          axios.get(`${process.env.REACT_APP_API_URL}/payments`),
+          axios.get(`${process.env.REACT_APP_API_URL}/students`),
+          axios.get(`${process.env.REACT_APP_API_URL}/teachers`),
+          axios.get(`${process.env.REACT_APP_API_URL}/classes`),
         ]);
         setPayments(paymentResponse.data);
         setStudents(studentResponse.data);
@@ -63,8 +63,9 @@ const StudentPayments = () => {
     const paymentData = editPayment || newPayment;
 
     try {
-      const response = await axios.post("${process.env.REACT_APP_API_URL}/payments", paymentData);
-      setPayments((prevPayments) => [...prevPayments, response.data]);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/payments`, paymentData);
+setPayments((prevPayments) => [...prevPayments, response.data]);
+
       setNewPayment({
         type: "Student",
         studentId: "",

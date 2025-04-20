@@ -14,14 +14,14 @@ const TeacherList = () => {
   // Charger la liste des enseignants
   useEffect(() => {
     axios
-      .get('${process.env.REACT_APP_API_URL}/teachers')
+      .get(`${process.env.REACT_APP_API_URL}/teachers`) // تأكد من استخدام backticks هنا
       .then((response) => {
         setTeachers(response.data);
         setFilteredTeachers(response.data);
       })
       .catch((error) => console.error('Erreur de chargement:', error));
   }, []);
-
+  
   // Filtrer les enseignants
   useEffect(() => {
     if (searchQuery === '') {
@@ -37,42 +37,47 @@ const TeacherList = () => {
       setFilteredTeachers(filtered);
     }
   }, [searchQuery, teachers]);
-
+  
   const handleAddTeacher = async (newTeacher) => {
     try {
-      const response = await axios.post('${process.env.REACT_APP_API_URL}/teachers', newTeacher);
-      setTeachers([...teachers, response.data]);
-      setFilteredTeachers([...teachers, response.data]);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/teachers`, newTeacher); // تأكد من استخدام backticks هنا
+      const updatedTeachers = [...teachers, response.data];
+      setTeachers(updatedTeachers);
+      setFilteredTeachers(updatedTeachers);
       setIsModalOpen(false);
     } catch (error) {
       console.error('Erreur:', error.response?.data || error.message);
       alert(`Erreur: ${error.response?.data?.message || error.message}`);
     }
   };
-
+  
   const handleUpdateTeacher = async (id, updatedData) => {
     try {
-      const response = await axios.put(`${process.env.REACT_APP_API_URL}/teachers/${id}`, updatedData);
-      setTeachers(teachers.map((teacher) => (teacher._id === id ? response.data : teacher)));
-      setFilteredTeachers(teachers.map((teacher) => (teacher._id === id ? response.data : teacher)));
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/teachers/${id}`, updatedData); // تأكد من استخدام backticks هنا
+      const updatedTeachers = teachers.map((teacher) =>
+        teacher._id === id ? response.data : teacher
+      );
+      setTeachers(updatedTeachers);
+      setFilteredTeachers(updatedTeachers);
       setIsEditModalOpen(false);
     } catch (error) {
       console.error('Erreur de mise à jour :', error);
       alert('Erreur lors de la mise à jour de l’enseignant.');
     }
   };
-
+  
   const handleDeleteTeacher = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/teachers/${id}`);
-      setTeachers(teachers.filter((teacher) => teacher._id !== id));
-      setFilteredTeachers(teachers.filter((teacher) => teacher._id !== id));
+      await axios.delete(`${process.env.REACT_APP_API_URL}/teachers/${id}`); // تأكد من استخدام backticks هنا
+      const updatedTeachers = teachers.filter((teacher) => teacher._id !== id);
+      setTeachers(updatedTeachers);
+      setFilteredTeachers(updatedTeachers);
     } catch (error) {
       console.error('Erreur lors de la suppression:', error);
       alert('Erreur lors de la suppression de l’enseignant.');
     }
   };
-
+  
   const openEditModal = (teacher) => {
     setSelectedTeacher(teacher);
     setIsEditModalOpen(true);

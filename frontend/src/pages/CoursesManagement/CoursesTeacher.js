@@ -20,9 +20,10 @@ const CoursesTeacher = () => {
     const fetchData = async () => {
       try {
         const [schedulesResponse, teachersResponse, classesResponse] = await Promise.all([
-          axios.get("${process.env.REACT_APP_API_URL}/teacher-schedules"),
-          axios.get("${process.env.REACT_APP_API_URL}/teachers"),
-          axios.get("${process.env.REACT_APP_API_URL}/classes"),
+          axios.get(`${process.env.REACT_APP_API_URL}/teacher-schedules`),
+          axios.get(`${process.env.REACT_APP_API_URL}/teachers`),
+          axios.get(`${process.env.REACT_APP_API_URL}/classes`),
+
         ]);
         setTeacherSchedules(schedulesResponse.data);
         setTeachers(teachersResponse.data);
