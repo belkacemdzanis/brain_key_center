@@ -16,7 +16,7 @@ const AddStudentModal = ({ onClose, onAddStudent, onUpdateStudent, selectedStude
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/classes")
+    axios.get("${process.env.REACT_APP_API_URL}/classes")
       .then((response) => setClasses(response.data))
       .catch((error) => console.error("Erreur lors de la récupération des classes", error));
   }, []);

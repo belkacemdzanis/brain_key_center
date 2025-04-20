@@ -30,10 +30,10 @@ const StudentPayments = () => {
       setLoading(true);
       try {
         const [paymentResponse, studentResponse, teacherResponse, classResponse] = await Promise.all([
-          axios.get("http://localhost:5000/api/payments"),
-          axios.get("http://localhost:5000/api/students"),
-          axios.get("http://localhost:5000/api/teachers"),
-          axios.get("http://localhost:5000/api/classes"),
+          axios.get("${process.env.REACT_APP_API_URL}/payments"),
+          axios.get("${process.env.REACT_APP_API_URL}/students"),
+          axios.get("${process.env.REACT_APP_API_URL}/teachers"),
+          axios.get("${process.env.REACT_APP_API_URL}/classes"),
         ]);
         setPayments(paymentResponse.data);
         setStudents(studentResponse.data);
@@ -63,7 +63,7 @@ const StudentPayments = () => {
     const paymentData = editPayment || newPayment;
 
     try {
-      const response = await axios.post("http://localhost:5000/api/payments", paymentData);
+      const response = await axios.post("${process.env.REACT_APP_API_URL}/payments", paymentData);
       setPayments((prevPayments) => [...prevPayments, response.data]);
       setNewPayment({
         type: "Student",
@@ -90,7 +90,7 @@ const StudentPayments = () => {
     const isConfirmed = window.confirm("Êtes-vous sûr de vouloir supprimer ce paiement ?");
     if (isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/api/payments/${paymentId}`);
+        await axios.delete(`${process.env.REACT_APP_API_URL}/payments/${paymentId}`);
         setPayments((prevPayments) => prevPayments.filter((payment) => payment._id !== paymentId));
       } catch (err) {
         setError("Erreur lors de la suppression du paiement.");

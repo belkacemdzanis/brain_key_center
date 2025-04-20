@@ -17,9 +17,9 @@ const Attendance = () => {
     const fetchData = async () => {
       try {
         const [studentsRes, teachersRes, classesRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/students"),
-          axios.get("http://localhost:5000/api/teachers"),
-          axios.get("http://localhost:5000/api/classes"),
+          axios.get("${process.env.REACT_APP_API_URL}/students"),
+          axios.get("${process.env.REACT_APP_API_URL}/teachers"),
+          axios.get("${process.env.REACT_APP_API_URL}/classes"),
         ]);
         setStudents(studentsRes.data);
         setTeachers(teachersRes.data);
@@ -34,7 +34,7 @@ const Attendance = () => {
 
   const fetchAttendances = useCallback(async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/attendance");
+      const res = await axios.get("${process.env.REACT_APP_API_URL}/attendance");
       setAttendances(res.data);
     } catch (error) {
       console.error("Erreur lors de la récupération des données des présences", error);
@@ -58,7 +58,7 @@ const Attendance = () => {
   const handleDelete = async (id) => {
     if (window.confirm("هل أنت متأكد من أنك تريد حذف هذا السجل؟")) {
       try {
-        await axios.delete(`http://localhost:5000/api/attendance/${id}`);
+        await axios.delete(`${process.env.REACT_APP_API_URL}/attendance/${id}`);
         fetchAttendances(); // تحديث البيانات بعد الحذف
       } catch (error) {
         console.error("Erreur lors de la suppression", error);

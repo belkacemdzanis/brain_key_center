@@ -11,7 +11,7 @@ const ClassList = () => {
   useEffect(() => {
     const getClasses = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/classes');
+        const response = await axios.get('${process.env.REACT_APP_API_URL}/classes');
         setClasses(response.data);
       } catch (error) {
         console.error('Erreur lors du chargement des classes:', error);
@@ -29,7 +29,7 @@ const ClassList = () => {
 
   const handleDeleteClass = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/classes/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/classes/${id}`);
       setClasses(classes.filter(classData => classData._id !== id));
     } catch (error) {
       console.error('Erreur lors de la suppression de la classe:', error);

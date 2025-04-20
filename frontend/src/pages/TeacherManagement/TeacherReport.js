@@ -9,7 +9,7 @@ const TeacherReport = () => {
   const [totalMonthlyPayment, setTotalMonthlyPayment] = useState(0);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/teachers')
+    axios.get('${process.env.REACT_APP_API_URL}/teachers')
       .then(response => {
         const data = response.data;
         setTeachers(data);

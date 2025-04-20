@@ -6,7 +6,7 @@ const AddClassModal = ({ toggleModal, setClasses }) => {
 
   const handleAddClass = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/classes', { name: className });
+      const response = await axios.post('${process.env.REACT_APP_API_URL}/classes', { name: className });
       setClasses((prevClasses) => [...prevClasses, response.data]);
       toggleModal(); // Fermer le modal après l'ajout
     } catch (error) {

@@ -20,9 +20,9 @@ const CoursesTeacher = () => {
     const fetchData = async () => {
       try {
         const [schedulesResponse, teachersResponse, classesResponse] = await Promise.all([
-          axios.get("http://localhost:5000/api/teacher-schedules"),
-          axios.get("http://localhost:5000/api/teachers"),
-          axios.get("http://localhost:5000/api/classes"),
+          axios.get("${process.env.REACT_APP_API_URL}/teacher-schedules"),
+          axios.get("${process.env.REACT_APP_API_URL}/teachers"),
+          axios.get("${process.env.REACT_APP_API_URL}/classes"),
         ]);
         setTeacherSchedules(schedulesResponse.data);
         setTeachers(teachersResponse.data);
@@ -61,7 +61,7 @@ const CoursesTeacher = () => {
       if (formData._id) {
         // Mise à jour du cours
         response = await axios.put(
-          `http://localhost:5000/api/teacher-schedules/${formData._id}`,
+          `${process.env.REACT_APP_API_URL}/teacher-schedules/${formData._id}`,
           formData
         );
         setTeacherSchedules(
@@ -72,7 +72,7 @@ const CoursesTeacher = () => {
       } else {
         // Ajouter un nouveau cours
         response = await axios.post(
-          "http://localhost:5000/api/teacher-schedules",
+          "${process.env.REACT_APP_API_URL}/teacher-schedules",
           formData
         );
         setTeacherSchedules([...teacherSchedules, response.data]);
@@ -109,7 +109,7 @@ const CoursesTeacher = () => {
   // Supprimer un cours
   const deleteCourse = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/teacher-schedules/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/teacher-schedules/${id}`);
       setTeacherSchedules(teacherSchedules.filter((course) => course._id !== id));
     } catch (error) {
       console.error("Erreur lors de la suppression du cours :", error);

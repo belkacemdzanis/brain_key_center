@@ -11,7 +11,7 @@ const AttendanceReport = () => {
     const fetchAttendances = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:5000/api/attendance");
+        const response = await axios.get("${process.env.REACT_APP_API_URL}/attendance");
         setAttendances(response.data);
       } catch (err) {
         setError("Erreur lors de la récupération des données de présence");

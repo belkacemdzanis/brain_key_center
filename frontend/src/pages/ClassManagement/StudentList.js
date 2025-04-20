@@ -12,7 +12,7 @@ const StudentList = ({ selectedClass }) => {
     const fetchStudents = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:5000/api/students');
+        const response = await axios.get('${process.env.REACT_APP_API_URL}/students');
         setStudents(response.data);
       } catch (err) {
         setError("Erreur lors de la récupération des étudiants.");
@@ -35,7 +35,7 @@ const StudentList = ({ selectedClass }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/students/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/students/${id}`);
       setStudents(students.filter((student) => student._id !== id));
     } catch {
       setError("Erreur lors de la suppression de l'étudiant.");
@@ -45,7 +45,7 @@ const StudentList = ({ selectedClass }) => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:5000/api/students/${selectedStudent._id}`, selectedStudent);
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/students/${selectedStudent._id}`, selectedStudent);
       setStudents(students.map((student) =>
         student._id === selectedStudent._id ? response.data : student
       ));

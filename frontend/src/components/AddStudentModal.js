@@ -18,7 +18,7 @@ const AddStudentModal = ({ onClose, onAddStudent, onUpdateStudent, selectedStude
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/classes');
+        const response = await axios.get('${process.env.REACT_APP_API_URL}/classes');
         setClasses(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des classes", error);

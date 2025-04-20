@@ -35,7 +35,7 @@ const AddAttendanceModal = ({
   useEffect(() => {
     if (attendanceId) {
       axios
-        .get(`http://localhost:5000/api/attendance/${attendanceId}`)
+        .get(`${process.env.REACT_APP_API_URL}/attendance/${attendanceId}`)
         .then((response) => {
           const attendance = response.data;
           setType(attendance.type);
@@ -74,13 +74,13 @@ const AddAttendanceModal = ({
       if (attendanceId) {
         // Si un `attendanceId` existe, on effectue une mise à jour avec `PUT`
         response = await axios.put(
-          `http://localhost:5000/api/attendance/${attendanceId}`,
+          `${process.env.REACT_APP_API_URL}/attendance/${attendanceId}`,
           attendanceData
         );
       } else {
         // Sinon, on effectue une création avec `POST`
         response = await axios.post(
-          "http://localhost:5000/api/attendance",
+          "${process.env.REACT_APP_API_URL}/attendance",
           attendanceData
         );
       }

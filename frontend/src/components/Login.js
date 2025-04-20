@@ -27,7 +27,7 @@ const Login = () => {
     if (password !== confirmPassword) return setError("Les mots de passe ne correspondent pas");
 
     try {
-      const response = await axios.post(`http://localhost:5000/api/users/${role}/register`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/${role}/register`, {
         email,
         password,
         role,
@@ -53,7 +53,7 @@ const Login = () => {
     if (password.length < 6) return setError("Le mot de passe doit contenir au moins 6 caractères");
 
     try {
-      const response = await axios.post(`http://localhost:5000/api/users/${role}/login`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/${role}/login`, {
         email,
         password,
       });
