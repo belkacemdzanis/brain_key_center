@@ -14,7 +14,7 @@ const StudentList = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/students`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/students`);
       setStudents(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des données des étudiants :', error);
@@ -23,7 +23,7 @@ const StudentList = () => {
   
   const addStudent = async (student) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/students`, student);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/students`, student);
       setStudents([...students, response.data]);
     } catch (error) {
       console.error('Erreur lors de l\'ajout de l\'étudiant :', error.response ? error.response.data : error);
@@ -32,7 +32,7 @@ const StudentList = () => {
   
   const deleteStudent = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/students/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/students/${id}`);
       setStudents(students.filter((student) => student._id !== id));
     } catch (error) {
       console.error('Erreur lors de la suppression de l\'étudiant :', error);
@@ -41,7 +41,7 @@ const StudentList = () => {
   
   const updateStudent = async (updatedStudent) => {
     try {
-      const response = await axios.put(`${process.env.REACT_APP_API_URL}/students/${updatedStudent._id}`, updatedStudent);
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/students/${updatedStudent._id}`, updatedStudent);
       setStudents(students.map((student) => (student._id === updatedStudent._id ? response.data : student)));
     } catch (error) {
       console.error('Erreur lors de la mise à jour des données de l\'étudiant :', error);

@@ -9,7 +9,7 @@ const TeacherReport = () => {
   const [totalMonthlyPayment, setTotalMonthlyPayment] = useState(0);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/teachers`) // استخدم backticks هنا
+    axios.get(`${process.env.REACT_APP_API_URL}/api/teachers`) // استخدم backticks هنا
       .then(response => {
         const data = response.data;
         setTeachers(data);

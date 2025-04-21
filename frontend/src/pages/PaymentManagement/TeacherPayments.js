@@ -8,7 +8,7 @@ function Teachers() {
     // جلب البيانات من API
     const fetchTeachers = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/teachers`); // الرابط إلى مسار الـ backend
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/teachers`); // الرابط إلى مسار الـ backend
         setTeachers(response.data); // تخزين البيانات في الحالة
               } catch (error) {
         console.error("Error fetching teachers:", error);

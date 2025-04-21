@@ -13,7 +13,7 @@ const TeacherList = () => {
 
   // Charger la liste des enseignants
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/teachers`)
+    axios.get(`${process.env.REACT_APP_API_URL}/api/teachers`)
       .then(response => {
         setTeachers(response.data);
         setFilteredTeachers(response.data);
@@ -35,7 +35,7 @@ const TeacherList = () => {
   }, [searchQuery, teachers]);
 
   const handleAddTeacher = async (newTeacher) => {
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/teachers`, newTeacher);
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/teachers`, newTeacher);
     setTeachers([...teachers, response.data]);
     setFilteredTeachers([...teachers, response.data]);
     setIsModalOpen(false);
@@ -43,7 +43,7 @@ const TeacherList = () => {
 
   const handleUpdateTeacher = async (id, updatedData) => {
     try {
-      const response = await axios.put(`${process.env.REACT_APP_API_URL}/teachers/${id}`, updatedData);
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/teachers/${id}`, updatedData);
       setTeachers(teachers.map(teacher => (teacher._id === id ? response.data : teacher)));
       setFilteredTeachers(teachers.map(teacher => (teacher._id === id ? response.data : teacher)));
       setIsEditModalOpen(false);
@@ -55,7 +55,7 @@ const TeacherList = () => {
 
   const handleDeleteTeacher = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/teachers/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/teachers/${id}`);
       setTeachers(teachers.filter(teacher => teacher._id !== id));
       setFilteredTeachers(teachers.filter(teacher => teacher._id !== id));
     } catch (error) {

@@ -9,7 +9,7 @@ const CoursesStudent = () => {
   useEffect(() => {
     const fetchTables = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/schedule`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/schedule`);
         setTables(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error(error);
@@ -22,7 +22,7 @@ const CoursesStudent = () => {
 
   const saveTables = async () => {
   try {
-    await axios.put(`${process.env.REACT_APP_API_URL}/schedule`, tables);
+    await axios.put(`${process.env.REACT_APP_API_URL}/api/schedule`, tables);
     alert("Modifications enregistrées avec succès !");
   } catch (error) {
     console.error(error);

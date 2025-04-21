@@ -14,7 +14,7 @@ const TeacherList = () => {
   // Charger la liste des enseignants
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/teachers`) // تأكد من استخدام backticks هنا
+      .get(`${process.env.REACT_APP_API_URL}/api/teachers`) // تأكد من استخدام backticks هنا
       .then((response) => {
         setTeachers(response.data);
         setFilteredTeachers(response.data);
@@ -40,7 +40,7 @@ const TeacherList = () => {
   
   const handleAddTeacher = async (newTeacher) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/teachers`, newTeacher); // تأكد من استخدام backticks هنا
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/teachers`, newTeacher); // تأكد من استخدام backticks هنا
       const updatedTeachers = [...teachers, response.data];
       setTeachers(updatedTeachers);
       setFilteredTeachers(updatedTeachers);
@@ -53,7 +53,7 @@ const TeacherList = () => {
   
   const handleUpdateTeacher = async (id, updatedData) => {
     try {
-      const response = await axios.put(`${process.env.REACT_APP_API_URL}/teachers/${id}`, updatedData); // تأكد من استخدام backticks هنا
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/teachers/${id}`, updatedData); // تأكد من استخدام backticks هنا
       const updatedTeachers = teachers.map((teacher) =>
         teacher._id === id ? response.data : teacher
       );
@@ -68,7 +68,7 @@ const TeacherList = () => {
   
   const handleDeleteTeacher = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/teachers/${id}`); // تأكد من استخدام backticks هنا
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/teachers/${id}`); // تأكد من استخدام backticks هنا
       const updatedTeachers = teachers.filter((teacher) => teacher._id !== id);
       setTeachers(updatedTeachers);
       setFilteredTeachers(updatedTeachers);
