@@ -73,7 +73,7 @@ const CoursesTeacher = () => {
       } else {
         // Ajouter un nouveau cours
         response = await axios.post(
-          "${process.env.REACT_APP_API_URL}/teacher-schedules",
+          `${process.env.REACT_APP_API_URL}/teacher-schedules`,
           formData
         );
         setTeacherSchedules([...teacherSchedules, response.data]);

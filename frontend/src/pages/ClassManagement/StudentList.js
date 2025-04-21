@@ -12,7 +12,7 @@ const StudentList = ({ selectedClass }) => {
     const fetchStudents = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('${process.env.REACT_APP_API_URL}/students');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/students`);
         setStudents(response.data);
       } catch (err) {
         setError("Erreur lors de la récupération des étudiants.");

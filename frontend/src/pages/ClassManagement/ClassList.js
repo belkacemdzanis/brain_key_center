@@ -11,7 +11,7 @@ const ClassList = () => {
   useEffect(() => {
     const getClasses = async () => {
       try {
-        const response = await axios.get('${process.env.REACT_APP_API_URL}/classes');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/classes`);
         setClasses(response.data);
       } catch (error) {
         console.error('Erreur lors du chargement des classes:', error);

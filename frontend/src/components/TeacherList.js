@@ -13,7 +13,7 @@ const TeacherList = () => {
 
   // Charger la liste des enseignants
   useEffect(() => {
-    axios.get('${process.env.REACT_APP_API_URL}/teachers')
+    axios.get(`${process.env.REACT_APP_API_URL}/teachers`)
       .then(response => {
         setTeachers(response.data);
         setFilteredTeachers(response.data);
@@ -35,7 +35,7 @@ const TeacherList = () => {
   }, [searchQuery, teachers]);
 
   const handleAddTeacher = async (newTeacher) => {
-    const response = await axios.post('${process.env.REACT_APP_API_URL}/teachers', newTeacher);
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/teachers`, newTeacher);
     setTeachers([...teachers, response.data]);
     setFilteredTeachers([...teachers, response.data]);
     setIsModalOpen(false);
