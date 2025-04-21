@@ -12,11 +12,17 @@ exports.getAllTeachers = async (req, res) => {
 };
 
 exports.createTeacher = async (req, res) => {
-  const { firstName, lastName, email, monthlyPayment } = req.body;
+  const { firstName, lastName, email, monthlyPayment, phone } = req.body;
 
   // Vérification des champs obligatoires
-  if (!firstName || !lastName || !email || !monthlyPayment) {
+  if (!firstName || !lastName || !email || !monthlyPayment || !phone) {
     return res.status(400).json({ message: "Veuillez remplir tous les champs obligatoires." });
+  }
+
+  // Vérification du numéro de téléphone (doit contenir exactement 10 chiffres)
+  const phoneRegex = /^\d{10}$/;
+  if (!phoneRegex.test(phone)) {
+    return res.status(400).json({ message: "Veuillez fournir un numéro de téléphone valide (10 chiffres)." });
   }
 
   try {
@@ -27,7 +33,6 @@ exports.createTeacher = async (req, res) => {
     res.status(400).json({ message: "Erreur lors de l'ajout de l'enseignant.", error: error.message });
   }
 };
-
 exports.updateTeacher = async (req, res) => {
   const { id } = req.params;
 

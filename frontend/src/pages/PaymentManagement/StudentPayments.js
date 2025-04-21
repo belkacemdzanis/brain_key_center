@@ -56,6 +56,21 @@ const StudentPayments = () => {
       setNewPayment((prev) => ({ ...prev, [name]: value }));
     }
   };
+  const handleEditPayment = (payment) => {
+    setEditPayment(payment);
+    setNewPayment({
+      type: payment.type,
+      studentId: payment.studentId || "",
+      teacherId: payment.teacherId || "",
+      paymentAmount: payment.paymentAmount,
+      paymentDate: payment.paymentDate,
+      nextPaymentDate: payment.nextPaymentDate || "",
+      paymentMethod: payment.paymentMethod,
+      class: payment.class || "",
+      material: payment.material || "",
+    });
+  };
+
 
   const handleAddPayment = async (e) => {
     e.preventDefault();
@@ -394,9 +409,17 @@ setPayments((prevPayments) => [...prevPayments, response.data]);
                     : "Non spécifiée"}
                 </td>
                 <td className="p-4 flex space-x-2">
-                  <button className="px-4 py-2 bg-yellow-400 text-white rounded-lg">Modifier</button>
-                  <button className="px-4 py-2 bg-red-500 text-white rounded-lg">Supprimer</button>
-                </td>
+                <button
+                  onClick={() => handleEditPayment(payment)}
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  Modifier
+                </button>                  <button
+                  onClick={() => handleDeletePayment(payment._id)}
+                  className="text-red-600 hover:text-red-800"
+                >
+                  Supprimer
+                </button>                </td>
               </tr>
             );
           })}
