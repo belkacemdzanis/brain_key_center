@@ -1,87 +1,84 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import AddTeacherModal from './AddTeacherModal';
-import EditTeacherModal from './EditTeacherModal';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import AddTeacherModal from './AddTeacherModal'
+import EditTeacherModal from './EditTeacherModal'
 
 const TeacherList = () => {
-  const [teachers, setTeachers] = useState([]);
-  const [filteredTeachers, setFilteredTeachers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedTeacher, setSelectedTeacher] = useState(null);
+  const [teachers, setTeachers] = useState([])
+  const [filteredTeachers, setFilteredTeachers] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [selectedTeacher, setSelectedTeacher] = useState(null)
 
-  // Charger la liste des enseignants
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/teachers`) // تأكد من استخدام backticks هنا
+      .get(`${process.env.REACT_APP_API_URL}/api/teachers`)
       .then((response) => {
-        setTeachers(response.data);
-        setFilteredTeachers(response.data);
+        setTeachers(response.data)
+        setFilteredTeachers(response.data)
       })
-      .catch((error) => console.error('Erreur de chargement:', error));
-  }, []);
-  
-  // Filtrer les enseignants
+      .catch((error) => console.error('Erreur de chargement:', error))
+  }, [])
+
   useEffect(() => {
     if (searchQuery === '') {
-      setFilteredTeachers(teachers);
+      setFilteredTeachers(teachers)
     } else {
       const filtered = teachers.filter((teacher) => {
-        const fullName = `${teacher.firstName} ${teacher.lastName}`.toLowerCase();
+        const fullName = `${teacher.firstName} ${teacher.lastName}`.toLowerCase()
         return (
           fullName.includes(searchQuery.toLowerCase()) ||
           teacher.email.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-      });
-      setFilteredTeachers(filtered);
+        )
+      })
+      setFilteredTeachers(filtered)
     }
-  }, [searchQuery, teachers]);
-  
+  }, [searchQuery, teachers])
+
   const handleAddTeacher = async (newTeacher) => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/teachers`, newTeacher); // تأكد من استخدام backticks هنا
-      const updatedTeachers = [...teachers, response.data];
-      setTeachers(updatedTeachers);
-      setFilteredTeachers(updatedTeachers);
-      setIsModalOpen(false);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/teachers`, newTeacher)
+      setTeachers([...teachers, response.data])
+      setFilteredTeachers([...teachers, response.data])
+      setIsModalOpen(false)
     } catch (error) {
-      console.error('Erreur:', error.response?.data || error.message);
-      alert(`Erreur: ${error.response?.data?.message || error.message}`);
+      console.error('Erreur:', error.response?.data || error.message)
+      alert(`Erreur: ${error.response?.data?.message || error.message}`)
     }
-  };
-  
+  }
+
   const handleUpdateTeacher = async (id, updatedData) => {
     try {
-      const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/teachers/${id}`, updatedData); // تأكد من استخدام backticks هنا
-      const updatedTeachers = teachers.map((teacher) =>
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/teachers/${id}`, updatedData)
+      const updatedList = teachers.map((teacher) =>
         teacher._id === id ? response.data : teacher
-      );
-      setTeachers(updatedTeachers);
-      setFilteredTeachers(updatedTeachers);
-      setIsEditModalOpen(false);
+      )
+      setTeachers(updatedList)
+      setFilteredTeachers(updatedList)
+      setIsEditModalOpen(false)
     } catch (error) {
-      console.error('Erreur de mise à jour :', error);
-      alert('Erreur lors de la mise à jour de l’enseignant.');
+      console.error('Erreur de mise à jour :', error)
+      alert('Erreur lors de la mise à jour de l’enseignant.')
     }
-  };
-  
+  }
+
   const handleDeleteTeacher = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/teachers/${id}`); // تأكد من استخدام backticks هنا
-      const updatedTeachers = teachers.filter((teacher) => teacher._id !== id);
-      setTeachers(updatedTeachers);
-      setFilteredTeachers(updatedTeachers);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/teachers/${id}`)
+      const updatedList = teachers.filter((teacher) => teacher._id !== id)
+      setTeachers(updatedList)
+      setFilteredTeachers(updatedList)
     } catch (error) {
-      console.error('Erreur lors de la suppression:', error);
-      alert('Erreur lors de la suppression de l’enseignant.');
+      console.error('Erreur lors de la suppression:', error)
+      alert('Erreur lors de la suppression de l’enseignant.')
     }
-  };
-  
+  }
+
   const openEditModal = (teacher) => {
-    setSelectedTeacher(teacher);
-    setIsEditModalOpen(true);
-  };
+    setSelectedTeacher(teacher)
+    setIsEditModalOpen(true)
+  }
 
   return (
     <div className="container mx-auto p-4">
@@ -108,52 +105,46 @@ const TeacherList = () => {
             <th className="py-3 px-4 text-white text-left">Nom</th>
             <th className="py-3 px-4 text-white text-left">Type d'employé</th>
             <th className="py-3 px-4 text-white text-left">Numéro de téléphone</th>
-            <th className="py-3 px-4 text-white text-left">Email</th>
+            <th className="py-3 px-4 text-white text-left">Em@il </th>
             <th className="py-3 px-4 text-white text-left">Paiement mensuel</th>
-            <th className="py-3 px-4 text-white text-left">Date de paiement</th>
-             <th className="py-3 px-4 text-white text-left">Actions</th>
+            <th className="py-3 px-4 text-white text-left">Date d’enregistrement</th>
+            <th className="py-3 px-4 text-white text-left">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {filteredTeachers.map((teacher) => {
-            const paymentDate = new Date(teacher.paymentDate);
-            const today = new Date();
-            const diffInDays = Math.ceil((paymentDate - today) / (1000 * 60 * 60 * 24));
-
-            let rowClass = '';
-            if (diffInDays <= 3) rowClass = 'bg-red-100';
-            else if (diffInDays <= 7) rowClass = 'bg-orange-100';
-
-            return (
-              <tr key={teacher._id} className={`border-b hover:bg-blue-50 ${rowClass}`}>
-                <td className="py-3 px-4">{teacher.firstName}</td>
-                <td className="py-3 px-4">{teacher.lastName}</td>
-                <td className="py-3 px-4">{teacher.employeeType}</td>
-                <td className="py-3 px-4">{teacher.phone}</td>
-                <td className="py-3 px-4">{teacher.email}</td>
-                <td className="py-3 px-4">{teacher.monthlyPayment}</td>
-                <td className="py-3 px-4">{new Date(teacher.paymentDate).toLocaleDateString()}</td>
-                 <td className="py-3 px-4 flex space-x-2">
-                  <button
-                    onClick={() => openEditModal(teacher)}
-                    className="px-2 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
-                  >
-                    Modifier
-                  </button>
-                  <button
-                    onClick={() => handleDeleteTeacher(teacher._id)}
-                    className="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-                  >
-                    Supprimer
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {filteredTeachers.map((teacher) => (
+            <tr key={teacher._id} className="border-b hover:bg-blue-50">
+              <td className="py-3 px-4">{teacher.firstName}</td>
+              <td className="py-3 px-4">{teacher.lastName}</td>
+              <td className="py-3 px-4">{teacher.employeeType}</td>
+              <td className="py-3 px-4">{teacher.phone}</td>
+              <td className="py-3 px-4">{teacher.email}</td>
+              <td className="py-3 px-4">{teacher.monthlyPayment}</td>
+              <td className="py-3 px-4">
+                {new Date(teacher.paymentDate).toLocaleDateString()}
+              </td>
+              <td className="py-3 px-4 flex space-x-2">
+                <button
+                  onClick={() => openEditModal(teacher)}
+                  className="px-2 py-1 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
+                >
+                  Modifier
+                </button>
+                <button
+                  onClick={() => handleDeleteTeacher(teacher._id)}
+                  className="px-2 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                >
+                  Supprimer
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
 
-      {isModalOpen && <AddTeacherModal onClose={() => setIsModalOpen(false)} onAddTeacher={handleAddTeacher} />}
+      {isModalOpen && (
+        <AddTeacherModal onClose={() => setIsModalOpen(false)} onAddTeacher={handleAddTeacher} />
+      )}
       {isEditModalOpen && selectedTeacher && (
         <EditTeacherModal
           teacher={selectedTeacher}
@@ -162,7 +153,7 @@ const TeacherList = () => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default TeacherList;
+export default TeacherList

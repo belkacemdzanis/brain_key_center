@@ -17,7 +17,7 @@ const teacherSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    match: [/^\+?[1-9]\d{1,14}$/, 'Please provide a valid phone number'],
+    match: [/^(0|\+213)[5-7][0-9]{8}$/, 'Veuillez fournir un numéro de téléphone algérien valide'],
   },
   email: {
     type: String,

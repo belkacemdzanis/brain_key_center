@@ -15,12 +15,25 @@ const AddTeacherModal = ({ onClose, onAddTeacher }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const phonePattern = /^(0|\+213)[5-7][0-9]{8}$/;
+    const trimmedPhone = teacher.phone.replace(/\s+/g, '');
+
+    if (!phonePattern.test(trimmedPhone)) {
+      alert("Veuillez entrer un numéro de téléphone valide (ex: 0551234567 ou +213551234567)");
+      return;
+    }
+
     if (!teacher.monthlyPayment || isNaN(parseFloat(teacher.monthlyPayment))) {
       alert("Veuillez entrer un salaire mensuel valide.");
       return;
     }
 
-    onAddTeacher({ ...teacher, monthlyPayment: parseFloat(teacher.monthlyPayment) });
+    onAddTeacher({
+      ...teacher,
+      phone: trimmedPhone,
+      monthlyPayment: parseFloat(teacher.monthlyPayment),
+    });
+
     setTeacher({
       firstName: "",
       lastName: "",
@@ -69,6 +82,7 @@ const AddTeacherModal = ({ onClose, onAddTeacher }) => {
             placeholder="Numéro de téléphone"
             value={teacher.phone}
             onChange={(e) => setTeacher({ ...teacher, phone: e.target.value })}
+            required
           />
           <input
             type="email"

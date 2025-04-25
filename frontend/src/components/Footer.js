@@ -29,7 +29,7 @@ const Footer = () => {
 
         {/* Adresse de l'école */}
         <div className="mt-4 md:mt-0 text-center md:text-right">
-          <p className="text-sm text-gray-500">📍 Adresse : Brain key center RN26 6006 Tazmalt, Algeria</p>
+          <p className="text-sm text-gray-500">📍 Adresse : Brain key center tazmalt centre 6006 Tazmalt, Algeria</p>
           <p className="text-sm text-gray-500">📞 Téléphone : +213 675 45 08 64</p>
           <p className="text-sm text-gray-500">📧 Email : Brainkey62@gmail.com</p>
         </div>
